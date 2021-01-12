@@ -29,7 +29,7 @@ public class ManufacturerDaoImpl implements ManufacturerDao {
     @Override
     public Manufacturer update(Manufacturer manufacturer) {
         for (int i = 0; i < Storage.manufacturers.size(); i++) {
-            if (Storage.manufacturers.get(i).getId() == manufacturer.getId()) {
+            if (manufacturer.getId() == Storage.manufacturers.get(i).getId()) {
                 Storage.manufacturers.set(i, manufacturer);
                 return manufacturer;
             }
@@ -39,11 +39,6 @@ public class ManufacturerDaoImpl implements ManufacturerDao {
 
     @Override
     public boolean delete(Long id) {
-        Optional<Manufacturer> current =
-                Storage.manufacturers.stream()
-                .filter(m -> m.getId() == id)
-                .findFirst();
-
-        return current.map(m -> Storage.manufacturers.remove(m)).orElse(false);
+        return Storage.manufacturers.removeIf(e -> e.getId() == id);
     }
 }
