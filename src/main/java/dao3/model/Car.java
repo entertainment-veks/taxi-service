@@ -1,26 +1,27 @@
 package dao3.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class Car {
-    private int id;
+    private Long id;
     private String model;
     private Manufacturer manufacturer;
     private List<Driver> drivers;
 
-    public Car(int id, String model, Manufacturer manufacturer, List<Driver> drivers) {
+    public Car(Long id, String model, Manufacturer manufacturer) {
         this.id = id;
         this.model = model;
         this.manufacturer = manufacturer;
-        this.drivers = drivers;
+        this.drivers = new ArrayList<>();
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -61,7 +62,7 @@ public class Car {
         if (this == o) return true;
         if (!(o instanceof Car)) return false;
         Car car = (Car) o;
-        return getId() == car.getId() &&
+        return Objects.equals(getId(), car.getId()) &&
                 Objects.equals(getModel(), car.getModel()) &&
                 Objects.equals(getManufacturer(), car.getManufacturer()) &&
                 Objects.equals(getDrivers(), car.getDrivers());

@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public class ManufactererServiceImpl implements ManufacturerService {
     @Inject
-    ManufacturerDao manufacturerDao;
+    private ManufacturerDao manufacturerDao;
 
     @Override
     public Manufacturer create(Manufacturer manufacturer) {
@@ -19,7 +19,7 @@ public class ManufactererServiceImpl implements ManufacturerService {
 
     @Override
     public Manufacturer get(Long id) {
-        return manufacturerDao.get(id).orElse(null);
+        return manufacturerDao.get(id).get();
     }
 
     @Override

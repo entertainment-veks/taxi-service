@@ -7,13 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Storage {
-    public static List<Car> cars = new ArrayList<>();
-    public static List<Driver> drivers = new ArrayList<>();
-    public static List<Manufacturer> manufacturers = new ArrayList<>();
+    public static final List<Car> cars = new ArrayList<>();
+    public static final List<Driver> drivers = new ArrayList<>();
+    public static final List<Manufacturer> manufacturers = new ArrayList<>();
 
-    private static int carIds = 0;
-    private static int driverIds = 0;
-    private static int manufacturerIds = 0;
+    private static Long carIds = 0L;
+    private static Long driverIds = 0L;
+    private static Long manufacturerIds = 0L;
 
     public static Car addCarWithId(Car car) {
         carIds++;

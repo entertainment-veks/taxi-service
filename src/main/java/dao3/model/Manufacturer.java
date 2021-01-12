@@ -3,7 +3,7 @@ package dao3.model;
 import java.util.Objects;
 
 public class Manufacturer {
-    private long id;
+    private Long id;
     private String name;
     private String country;
 
@@ -12,11 +12,11 @@ public class Manufacturer {
         this.country = country;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -48,7 +48,7 @@ public class Manufacturer {
         if (this == o) return true;
         if (!(o instanceof Manufacturer)) return false;
         Manufacturer that = (Manufacturer) o;
-        return getId() == that.getId() &&
+        return Objects.equals(getId(), that.getId()) &&
                 Objects.equals(getName(), that.getName()) &&
                 Objects.equals(getCountry(), that.getCountry());
     }
