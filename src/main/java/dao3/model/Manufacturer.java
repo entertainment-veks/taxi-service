@@ -1,5 +1,7 @@
 package dao3.model;
 
+import java.util.Objects;
+
 public class Manufacturer {
     private long id;
     private String name;
@@ -39,5 +41,20 @@ public class Manufacturer {
         return "Manufacturer{"
                 + "id=" + id + ", name='" + name + '\''
                 + ", country='" + country + '\'' + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Manufacturer)) return false;
+        Manufacturer that = (Manufacturer) o;
+        return getId() == that.getId() &&
+                Objects.equals(getName(), that.getName()) &&
+                Objects.equals(getCountry(), that.getCountry());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), getCountry());
     }
 }

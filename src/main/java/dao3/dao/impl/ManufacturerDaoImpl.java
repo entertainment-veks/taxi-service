@@ -45,6 +45,5 @@ public class ManufacturerDaoImpl implements ManufacturerDao {
                 .findFirst();
 
         return current.map(m -> Storage.manufacturers.remove(m)).orElse(false);
-
     }
 }

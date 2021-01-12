@@ -1,6 +1,7 @@
 package dao3.model;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Car {
     private int id;
@@ -53,5 +54,21 @@ public class Car {
                 + ", model='" + model + '\''
                 + ", manufacturer=" + manufacturer
                 + ", drivers=" + drivers + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Car)) return false;
+        Car car = (Car) o;
+        return getId() == car.getId() &&
+                Objects.equals(getModel(), car.getModel()) &&
+                Objects.equals(getManufacturer(), car.getManufacturer()) &&
+                Objects.equals(getDrivers(), car.getDrivers());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getModel(), getManufacturer(), getDrivers());
     }
 }
