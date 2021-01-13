@@ -7,8 +7,7 @@ public class Driver {
     private String name;
     private String licenceNumber;
 
-    public Driver(long id, String name, String licenceNumber) {
-        this.id = id;
+    public Driver(String name, String licenceNumber) {
         this.name = name;
         this.licenceNumber = licenceNumber;
     }

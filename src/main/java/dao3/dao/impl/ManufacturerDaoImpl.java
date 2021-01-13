@@ -34,7 +34,7 @@ public class ManufacturerDaoImpl implements ManufacturerDao {
                 return manufacturer;
             }
         }
-        throw new RuntimeException("Can't update, element doesn't exist");
+        throw new RuntimeException("Can't update, element " + manufacturer + " doesn't exist");
     }
 
     @Override
