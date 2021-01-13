@@ -10,7 +10,6 @@ import dao3.service.ManufacturerService;
 
 public class Application {
     private static final Injector injector = Injector.getInstance("dao3");
-
     public static void main(String[] args) {
         ManufacturerService manufacturerService = (ManufacturerService)
                 injector.getInstance(ManufacturerService.class);
