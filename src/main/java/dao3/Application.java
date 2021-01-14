@@ -124,17 +124,15 @@ public class Application {
         System.out.println(carService.getAll().toString());
 
         System.out.println("Let's add driver to car:");
-        carService.addDriverToCar(driver1, car1);
-        System.out.println(car1);
+        carService.addDriverToCar(driver2, car2);
+        System.out.println(car2);
 
         System.out.println("Let's remove driver from the car:");
-        carService.removeDriverFromCar(driver1, car1);
-        System.out.println(car1);
+        carService.removeDriverFromCar(driver2, car2);
+        System.out.println(car2);
 
         System.out.println("Let's get all cars by driver:");
-        carService.addDriverToCar(driver1, car1);
         carService.addDriverToCar(driver1, car2);
-        carService.addDriverToCar(driver1, car3);
         carService.addDriverToCar(driver1, car4);
         System.out.println(carService.getAllByDriver(driver1id));
     }

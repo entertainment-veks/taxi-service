@@ -4,6 +4,9 @@ import dao3.dao.CarDao;
 import dao3.db.Storage;
 import dao3.lib.Dao;
 import dao3.model.Car;
+import dao3.model.Driver;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,5 +43,18 @@ public class CarDaoImpl implements CarDao {
     @Override
     public boolean delete(Long id) {
         return Storage.cars.removeIf(e -> e.getId().equals(id));
+    }
+
+    @Override
+    public List<Car> getAllByDriver(Long driverId) {
+        List<Car> result = new ArrayList<>();
+        for (Car currentCar : getAll()) {
+            for (Driver currentDriver : currentCar.getDrivers()) {
+                if (currentDriver.getId().equals(driverId)) {
+                    result.add(currentCar);
+                }
+            }
+        }
+        return result;
     }
 }
