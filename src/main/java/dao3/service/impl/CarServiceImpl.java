@@ -6,8 +6,6 @@ import dao3.lib.Service;
 import dao3.model.Car;
 import dao3.model.Driver;
 import dao3.service.CarService;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
