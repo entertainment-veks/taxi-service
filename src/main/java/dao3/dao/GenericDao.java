@@ -1,17 +1,16 @@
 package dao3.dao;
 
-import dao3.model.Driver;
 import java.util.List;
 import java.util.Optional;
 
 public interface GenericDao<T, I> {
-    T create(T t);
+    T create(T value);
 
-    Optional<T> get(I i);
+    Optional<T> get(I id);
 
     List<T> getAll();
 
-    T update(T t);
+    T update(T value);
 
-    boolean delete(I i);
+    boolean delete(I id);
 }
