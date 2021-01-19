@@ -119,6 +119,30 @@ public class CarDaoJdbcImpl implements CarDao {
         } catch (SQLException e) {
             throw new DataProcessingException("Can't update " + car, e);
         }
+
+        query = "DELETE FROM " + CARS_DRIVERS_TAB_NAME
+                + " WHERE car_id = ?";
+        try (Connection connection = ConnectionUtil.getConnection();
+                PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setLong(1, car.getId());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DataProcessingException("Can't update " + car, e);
+        }
+
+        query = "INSERT INTO " + CARS_DRIVERS_TAB_NAME
+                + " (car_id, diver_id) VALUES (?, ?)";
+        for (Driver driver : car.getDrivers()) {
+            try (Connection connection = ConnectionUtil.getConnection();
+                    PreparedStatement statement = connection
+                             .prepareStatement(query)) {
+                statement.setLong(1, car.getId());
+                statement.setLong(2, driver.getId());
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                throw new DataProcessingException("Can't update " + car, e);
+            }
+        }
         return car;
     }
 
