@@ -16,11 +16,10 @@ import taxiservice.util.ConnectionUtil;
 
 @Dao
 public class ManufacturerDaoJdbcImpl implements ManufacturerDao {
-    public static final String MANUFACTURERS_TAB_NAME = "manufacturers";
 
     @Override
     public Manufacturer create(Manufacturer manufacturer) {
-        String query = "INSERT INTO " + MANUFACTURERS_TAB_NAME + " (name, country) VALUES (?, ?)";
+        String query = "INSERT INTO manufacturers (name, country) VALUES (?, ?)";
         try (Connection connection = ConnectionUtil.getConnection();
                 PreparedStatement statement = connection
                         .prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
@@ -40,7 +39,7 @@ public class ManufacturerDaoJdbcImpl implements ManufacturerDao {
     @Override
     public Optional<Manufacturer> get(Long id) {
         Manufacturer result = new Manufacturer(null, null);
-        String query = "SELECT * FROM " + MANUFACTURERS_TAB_NAME
+        String query = "SELECT * FROM manufacturers"
                 + " WHERE manufacturer_id = ? AND deleted = false";
         try (Connection connection = ConnectionUtil.getConnection();
                 PreparedStatement statement = connection.prepareStatement(query)) {
@@ -59,7 +58,7 @@ public class ManufacturerDaoJdbcImpl implements ManufacturerDao {
     @Override
     public List<Manufacturer> getAll() {
         List<Manufacturer> result = new ArrayList<>();
-        String query = "SELECT * FROM " + MANUFACTURERS_TAB_NAME + " WHERE deleted = false";
+        String query = "SELECT * FROM manufacturers WHERE deleted = false";
         try (Connection connection = ConnectionUtil.getConnection();
                  PreparedStatement statement = connection.prepareStatement(query)) {
             ResultSet resultSet = statement.executeQuery(query);
@@ -74,10 +73,8 @@ public class ManufacturerDaoJdbcImpl implements ManufacturerDao {
 
     @Override
     public Manufacturer update(Manufacturer manufacturer) {
-        String query = "UPDATE " + MANUFACTURERS_TAB_NAME
-                + " SET name = ?,"
-                + " country = ? "
-                + "WHERE manufacturer_id = ? AND deleted = false";
+        String query = "UPDATE manufacturers SET name = ?, country = ?"
+                + " WHERE manufacturer_id = ? AND deleted = false";
         try (Connection connection = ConnectionUtil.getConnection();
                  PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, manufacturer.getName());
@@ -92,9 +89,7 @@ public class ManufacturerDaoJdbcImpl implements ManufacturerDao {
 
     @Override
     public boolean delete(Long id) {
-        String query = "UPDATE " + MANUFACTURERS_TAB_NAME
-                + " SET deleted = true"
-                + " WHERE manufacturer_id = ?";
+        String query = "UPDATE manufacturers SET deleted = true WHERE manufacturer_id = ?";
         try (Connection connection = ConnectionUtil.getConnection();
                  PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, id);
