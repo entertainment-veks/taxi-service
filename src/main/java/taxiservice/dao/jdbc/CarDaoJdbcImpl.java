@@ -32,21 +32,10 @@ public class CarDaoJdbcImpl implements CarDao {
             if (resultSet.next()) {
                 car.setId(resultSet.getLong(1));
             }
+
+            insertDataIntoCarsDrivers(car, connection);
         } catch (SQLException e) {
             throw new DataProcessingException("Can't create " + car, e);
-        }
-
-        query = "INSERT INTO cars_drivers (car_id, diver_id) VALUES (?, ?)";
-        for (Driver driver : car.getDrivers()) {
-            try (Connection connection = ConnectionUtil.getConnection();
-                     PreparedStatement statement = connection
-                             .prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
-                statement.setLong(1, car.getId());
-                statement.setLong(2, driver.getId());
-                statement.executeUpdate();
-            } catch (SQLException e) {
-                throw new DataProcessingException("Can't create " + car, e);
-            }
         }
         return car;
     }
@@ -76,7 +65,7 @@ public class CarDaoJdbcImpl implements CarDao {
 
     @Override
     public List<Car> getAll() {
-        List<Car> result = new ArrayList<>();
+        List<Car> cars = new ArrayList<>();
         String query = "SELECT * FROM cars c"
                 + " INNER JOIN manufacturers m"
                 + " ON c.manufacturer_id = m.manufacturer_id"
@@ -85,17 +74,17 @@ public class CarDaoJdbcImpl implements CarDao {
                 PreparedStatement statement = connection.prepareStatement(query)) {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                result.add(newCar(resultSet));
+                cars.add(newCar(resultSet));
             }
         } catch (SQLException e) {
             throw new DataProcessingException("Can't get all", e);
         }
-        if (result != null) {
-            for (Car car : result) {
+        if (cars != null) {
+            for (Car car : cars) {
                 car.setDrivers(getDrivers(car.getId()));
             }
         }
-        return result;
+        return cars;
     }
 
     @Override
@@ -118,21 +107,10 @@ public class CarDaoJdbcImpl implements CarDao {
                 PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, car.getId());
             statement.executeUpdate();
+
+            insertDataIntoCarsDrivers(car, connection);
         } catch (SQLException e) {
             throw new DataProcessingException("Can't update " + car, e);
-        }
-
-        query = "INSERT INTO cars_drivers (car_id, diver_id) VALUES (?, ?)";
-        for (Driver driver : car.getDrivers()) {
-            try (Connection connection = ConnectionUtil.getConnection();
-                    PreparedStatement statement = connection
-                             .prepareStatement(query)) {
-                statement.setLong(1, car.getId());
-                statement.setLong(2, driver.getId());
-                statement.executeUpdate();
-            } catch (SQLException e) {
-                throw new DataProcessingException("Can't update " + car, e);
-            }
         }
         return car;
     }
@@ -179,6 +157,20 @@ public class CarDaoJdbcImpl implements CarDao {
         return result;
     }
 
+    private void insertDataIntoCarsDrivers(Car car, Connection connection) {
+        String query = "INSERT INTO cars_drivers (car_id, diver_id) VALUES (?, ?)";
+        for (Driver driver : car.getDrivers()) {
+            try (PreparedStatement statement = connection
+                         .prepareStatement(query)) {
+                statement.setLong(1, car.getId());
+                statement.setLong(2, driver.getId());
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                throw new DataProcessingException("Can't insert into cars_drivers " + car, e);
+            }
+        }
+    }
+
     private List<Driver> getDrivers(Long carId) {
         List<Driver> result = new ArrayList<>();
         String query = "SELECT * FROM cars_drivers c"
@@ -211,7 +203,7 @@ public class CarDaoJdbcImpl implements CarDao {
             result.setId(resultSet.getObject("car_id", Long.class));
             return result;
         } catch (SQLException e) {
-            throw new DataProcessingException("Can't create car", e);
+            throw new DataProcessingException("Can't return new car", e);
         }
     }
 
