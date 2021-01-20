@@ -4,7 +4,7 @@ import java.util.List;
 import taxiservice.model.Car;
 import taxiservice.model.Driver;
 
-public interface CarService extends GenericService<Car> {
+public interface CarService extends GenericService<Car, Long> {
     @Override
     Car create(Car car);
 
