@@ -6,7 +6,7 @@
 
     <servlet>
         <servlet-name>index</servlet-name>
-        <servlet-class>taxiservice.controllers.IndexController</servlet-class>
+        <servlet-class>taxiservice.controller.IndexController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>index</servlet-name>
@@ -16,7 +16,7 @@
 
     <servlet>
         <servlet-name>addDriver</servlet-name>
-        <servlet-class>taxiservice.controllers.drivers.DriverCreateController</servlet-class>
+        <servlet-class>taxiservice.controller.driver.CreateDriverController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>addDriver</servlet-name>
@@ -25,7 +25,7 @@
 
     <servlet>
         <servlet-name>getAllDrivers</servlet-name>
-        <servlet-class>taxiservice.controllers.drivers.DriverGetAllController</servlet-class>
+        <servlet-class>taxiservice.controller.driver.GetAllDriverController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>getAllDrivers</servlet-name>
@@ -34,7 +34,7 @@
 
     <servlet>
         <servlet-name>addCar</servlet-name>
-        <servlet-class>taxiservice.controllers.cars.CarCreateController</servlet-class>
+        <servlet-class>taxiservice.controller.car.CreateCarController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>addCar</servlet-name>
@@ -43,17 +43,17 @@
 
     <servlet>
         <servlet-name>addDriverToCar</servlet-name>
-        <servlet-class>taxiservice.controllers.cars.AddDriverToCarController</servlet-class>
+        <servlet-class>taxiservice.controller.car.driver.AddDriverToCarController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>addDriverToCar</servlet-name>
-        <url-pattern>/cars/addDriver</url-pattern>
+        <url-pattern>/cars/drivers/add</url-pattern>
     </servlet-mapping>
 
 
     <servlet>
         <servlet-name>addManufacturer</servlet-name>
-        <servlet-class>taxiservice.controllers.manufacturers.ManufacturerCreateController</servlet-class>
+        <servlet-class>taxiservice.controller.manufacturer.CreateManufacturerController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>addManufacturer</servlet-name>

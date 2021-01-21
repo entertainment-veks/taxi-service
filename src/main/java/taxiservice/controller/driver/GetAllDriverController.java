@@ -1,4 +1,4 @@
-package taxiservice.controllers.drivers;
+package taxiservice.controller.driver;
 
 import java.io.IOException;
 import java.util.List;
@@ -10,7 +10,7 @@ import taxiservice.lib.Injector;
 import taxiservice.model.Driver;
 import taxiservice.service.DriverService;
 
-public class DriverGetAllController extends HttpServlet {
+public class GetAllDriverController extends HttpServlet {
     private static final Injector injector = Injector.getInstance("taxiservice");
     private static DriverService driverService = (DriverService)
             injector.getInstance(DriverService.class);
@@ -21,6 +21,6 @@ public class DriverGetAllController extends HttpServlet {
         List<Driver> allDrivers = driverService.getAll();
 
         req.setAttribute("allDrivers", allDrivers);
-        req.getRequestDispatcher("/WEB-INF/views/drivers/all.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/views/driver/all.jsp").forward(req, resp);
     }
 }
