@@ -8,10 +8,56 @@
         <servlet-name>index</servlet-name>
         <servlet-class>taxiservice.controllers.IndexController</servlet-class>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>index</servlet-name>
         <url-pattern>/index</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>addDriver</servlet-name>
+        <servlet-class>taxiservice.controllers.drivers.DriverCreateController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>addDriver</servlet-name>
+        <url-pattern>/drivers/add</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>getAllDrivers</servlet-name>
+        <servlet-class>taxiservice.controllers.drivers.DriverGetAllController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>getAllDrivers</servlet-name>
+        <url-pattern>/drivers/all</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>addCar</servlet-name>
+        <servlet-class>taxiservice.controllers.cars.CarCreateController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>addCar</servlet-name>
+        <url-pattern>/cars/add</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>addDriverToCar</servlet-name>
+        <servlet-class>taxiservice.controllers.cars.AddDriverToCarController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>addDriverToCar</servlet-name>
+        <url-pattern>/cars/addDriver</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>addManufacturer</servlet-name>
+        <servlet-class>taxiservice.controllers.manufacturers.ManufacturerCreateController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>addManufacturer</servlet-name>
+        <url-pattern>/manufacturers/add</url-pattern>
     </servlet-mapping>
 
 </web-app>
