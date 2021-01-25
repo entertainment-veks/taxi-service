@@ -1,4 +1,4 @@
-package taxiservice.controllers;
+package taxiservice.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

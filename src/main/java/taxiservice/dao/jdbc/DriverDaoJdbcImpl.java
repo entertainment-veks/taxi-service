@@ -41,13 +41,13 @@ public class DriverDaoJdbcImpl implements DriverDao {
         String query = "SELECT * FROM drivers WHERE driver_id = ? AND deleted = false";
         try (Connection connection = ConnectionUtil.getConnection();
                 PreparedStatement statement = connection.prepareStatement(query)) {
-            Driver result = new Driver(null, null);
+            Driver result = null;
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                newDriver(resultSet);
+                result = newDriver(resultSet);
             }
-            return Optional.of(result);
+            return Optional.ofNullable(result);
         } catch (SQLException e) {
             throw new DataProcessingException("Can't get by id " + id, e);
         }

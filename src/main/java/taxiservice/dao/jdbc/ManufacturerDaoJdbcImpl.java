@@ -46,8 +46,7 @@ public class ManufacturerDaoJdbcImpl implements ManufacturerDao {
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                result.setName(resultSet.getObject("name", String.class));
-                result.setCountry(resultSet.getObject("country", String.class));
+                result = newManufacturer(resultSet);
             }
         } catch (SQLException e) {
             throw new DataProcessingException("Can't get by id " + id, e);
