@@ -11,6 +11,8 @@ CREATE TABLE `dao3`.`drivers` (
 `driver_id` BIGINT(11) NOT NULL AUTO_INCREMENT,
 `name` VARCHAR(255) NOT NULL,
 `licence_number` VARCHAR(255) NOT NULL,
+`login` VARCHAR(255) NOT NULL,
+`password` VARCHAR(255) NOT NULL,
 `deleted` TINYINT NULL DEFAULT 0,
 PRIMARY KEY (`driver_id`));
 
