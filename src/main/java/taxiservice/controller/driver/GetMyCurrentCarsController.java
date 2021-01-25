@@ -10,7 +10,7 @@ import taxiservice.lib.Injector;
 import taxiservice.model.Car;
 import taxiservice.service.CarService;
 
-public class GetMyCurrentCarsController extends HttpServlet { //todo
+public class GetMyCurrentCarsController extends HttpServlet {
     private static final String DRIVER_ID = "driver_id";
     private static final Injector injector = Injector.getInstance("taxiservice");
     private static CarService carService = (CarService)
