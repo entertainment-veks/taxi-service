@@ -1,6 +1,8 @@
 package taxiservice.web.filter;
 
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -17,10 +19,12 @@ public class AuthentificationFilter implements Filter {
     private static final Injector injector = Injector.getInstance("taxiservice");
     private static DriverService driverService = (DriverService)
             injector.getInstance(DriverService.class);
+    private Set<String> links = new HashSet<>();
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-
+        links.add("/drivers/login");
+        links.add("/drivers/add");
     }
 
     @Override
@@ -31,7 +35,7 @@ public class AuthentificationFilter implements Filter {
         HttpServletResponse resp = (HttpServletResponse) response;
 
         String url = req.getServletPath();
-        if (url.equals("/drivers/login") || url.equals("/drivers/add")) {
+        if (links.contains(url)) {
             chain.doFilter(req, resp);
             return;
         }
