@@ -19,12 +19,12 @@ public class AuthentificationFilter implements Filter {
     private static final Injector injector = Injector.getInstance("taxiservice");
     private static DriverService driverService = (DriverService)
             injector.getInstance(DriverService.class);
-    private Set<String> links = new HashSet<>();
+    private Set<String> allowedLinks = new HashSet<>();
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        links.add("/drivers/login");
-        links.add("/drivers/add");
+        allowedLinks.add("/drivers/login");
+        allowedLinks.add("/drivers/add");
     }
 
     @Override
@@ -35,13 +35,13 @@ public class AuthentificationFilter implements Filter {
         HttpServletResponse resp = (HttpServletResponse) response;
 
         String url = req.getServletPath();
-        if (links.contains(url)) {
+        if (allowedLinks.contains(url)) {
             chain.doFilter(req, resp);
             return;
         }
 
         Long driverId = (Long) req.getSession().getAttribute(DRIVER_ID);
-        if (driverId == null || driverService.get(driverId) == null) {
+        if (driverId == null) {
             resp.sendRedirect(req.getContextPath() + "/drivers/login");
             return;
         }
