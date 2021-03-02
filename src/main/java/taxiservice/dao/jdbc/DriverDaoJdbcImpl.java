@@ -19,12 +19,15 @@ public class DriverDaoJdbcImpl implements DriverDao {
 
     @Override
     public Driver create(Driver driver) {
-        String query = "INSERT INTO drivers (name, licence_number) VALUES (?, ?)";
+        String query = "INSERT INTO drivers (name, licence_number, login, password) "
+                + "VALUES (?, ?, ?, ?)";
         try (Connection connection = ConnectionUtil.getConnection();
                 PreparedStatement statement = connection
                         .prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, driver.getName());
             statement.setString(2, driver.getLicenceNumber());
+            statement.setString(3, driver.getLogin());
+            statement.setString(4, driver.getPassword());
             statement.executeUpdate();
             ResultSet resultSet = statement.getGeneratedKeys();
             if (resultSet.next()) {
@@ -99,10 +102,29 @@ public class DriverDaoJdbcImpl implements DriverDao {
         }
     }
 
+    @Override
+    public Optional<Driver> findByLogin(String login) {
+        String query = "SELECT * FROM drivers WHERE login = ? AND deleted = false";
+        try (Connection connection = ConnectionUtil.getConnection();
+                PreparedStatement statement = connection.prepareStatement(query)) {
+            Driver result = null;
+            statement.setString(1, login);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                result = newDriver(resultSet);
+            }
+            return Optional.ofNullable(result);
+        } catch (SQLException e) {
+            throw new DataProcessingException("Can't get by login " + login, e);
+        }
+    }
+
     private Driver newDriver(ResultSet resultSet) {
         try {
             Driver result = new Driver(resultSet.getObject("name", String.class),
                     resultSet.getObject("licence_number", String.class));
+            result.setLogin(resultSet.getObject("login", String.class));
+            result.setPassword(resultSet.getObject("password", String.class));
             result.setId(resultSet.getObject("driver_id", Long.class));
             return result;
         } catch (SQLException e) {
